@@ -122,9 +122,6 @@ return isPositive ? sum : 0 - sum;
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
-
-
-
 };
 
 // 7. Compute the exponent of a number.
@@ -166,10 +163,35 @@ var powerOfTwo = function(n) {
 
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
+  /*var str = '';
+  for (var i = 0; i <= string.length - 1; i ++) {
+    str += string[string.length - 1 - i];
+  }
+  return str;
+  */
+
+  var str = '';
+
+  if (string.length === 1) {
+    return string;
+  }
+  var lilString = string.substring(1,string.length);
+  str = reverse(lilString) + string[0];
+
+  return str;
+
 };
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
+  string = string.split(' ').join('').toLowerCase();
+
+  if (string.length <= 2) {
+    return string[0] == string[string.length - 1];
+  }
+
+  return ( string[0] === string[string.length - 1] ) && palindrome(string.substring(1, string.length - 1));
+
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
