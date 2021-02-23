@@ -13,7 +13,7 @@ var factorial = function(n) {
   }
   // create result
   var result;
-  // base case for 1
+  // base case for 0
   if (n === 0) {
     // return 1
     return 1;
@@ -58,6 +58,23 @@ var sum = function(array) {
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+  // declare sum
+  var sum = 0;
+
+  // base case
+  if (!Array.isArray(array)) {
+    // return element
+    return array;
+  }
+
+  // recursion
+  for (var i = 0; i < array.length; i++) {
+    sum += arraySum(array[i]);
+  }
+    // add element to running sum
+
+  // return sum
+  return sum;
 };
 
 // 4. Check if a number is even.
@@ -83,11 +100,31 @@ var isEven = function(n) {
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
+
+var sum = 0;
+var isPositive = (n > 0);
+n = Math.abs(n);
+
+if (n === 0 || n === 1) {
+  return 0;
+}
+
+if (n === 2) {
+  return isPositive ? 1 : -1;
+}
+
+sum += sumBelow(n - 1) + n - 1;
+
+return isPositive ? sum : 0 - sum;
+
 };
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+
+
+
 };
 
 // 7. Compute the exponent of a number.
@@ -96,6 +133,18 @@ var range = function(x, y) {
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
+
+  if (exp === 0) {
+    return 1;
+  }
+
+  if (exp < 0) {
+    var negExp = 0 - exp;
+    return 1 / exponent(base, negExp);
+  }
+
+  return base * exponent(base, exp - 1);
+
 };
 
 // 8. Determine if a number is a power of two.
@@ -103,6 +152,16 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+
+  if ( n === 1 ) {
+    return true;
+  }
+
+  if (n > 1) {
+    return powerOfTwo(n/2);
+  }
+
+  return false;
 };
 
 // 9. Write a function that reverses a string.
