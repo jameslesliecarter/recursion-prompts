@@ -122,6 +122,9 @@ return isPositive ? sum : 0 - sum;
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+
+
+
 };
 
 // 7. Compute the exponent of a number.
@@ -266,6 +269,29 @@ var rMap = function(array, callback) {
 // countKeysInObj(obj, 'r') // 1
 // countKeysInObj(obj, 'e') // 2
 var countKeysInObj = function(obj, key) {
+
+  // count var
+  var count = 0;
+
+  for (var k in obj) {
+    if (k === key) {
+      count += 1;
+    }
+    var val = obj[k];
+    if (typeof obj[k] === 'object') {
+      count += countKeysInObj(val, key);
+    }
+
+  }
+
+  // iterate through keys
+    // base case obj.key is a primitive
+      // add to count
+    // add countKeysInObj(obj.key)
+
+
+  // return count
+  return count;
 };
 
 // 23. Write a function that counts the number of times a value occurs in an object.
@@ -273,11 +299,46 @@ var countKeysInObj = function(obj, key) {
 // countValuesInObj(obj, 'r') // 2
 // countValuesInObj(obj, 'e') // 1
 var countValuesInObj = function(obj, value) {
+
+  // count var
+  var count = 0;
+
+  for (var k in obj) {
+    if (obj[k] === value) {
+      count += 1;
+    }
+    var val = obj[k];
+    if (typeof obj[k] === 'object') {
+      count += countValuesInObj(val, value);
+    }
+
+  }
+
+  // iterate through keys
+    // base case obj.key is a primitive
+      // add to count
+    // add countKeysInObj(obj.key)
+
+
+  // return count
+  return count;
 };
 
 // 24. Find all keys in an object (and nested objects) by a provided name and rename
 // them to a provided new name while preserving the value stored at that key.
 var replaceKeysInObj = function(obj, oldKey, newKey) {
+
+  for (var k in obj) {
+    if (k === oldKey) {
+      obj[newKey] = obj[oldKey];
+      delete obj[oldKey];
+    }
+    var val = obj[k];
+    if (typeof val === 'object') {
+      replaceKeysInObj(val, oldKey, newKey);
+    }
+  }
+  return obj;
 };
 
 // 25. Get the first n Fibonacci numbers. In the Fibonacci sequence, each subsequent
