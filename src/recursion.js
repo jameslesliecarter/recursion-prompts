@@ -203,16 +203,48 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
+  if (y === 0) {
+    return NaN;
+  }
+  if (x === y) {
+    return 0;
+  }
+  if (x < y) {
+    return x;
+  }
+  if (x > y) {
+    return modulo(x - y, y);
+  }
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
 var multiply = function(x, y) {
+
+  if (y === 0) {
+    return 0;
+  }
+  if (y === 0) {
+    return x;
+  }
+  return x + multiply(x, y - 1);
+
 };
 
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods to arrive at an approximate quotient (ignore decimal endings).
 var divide = function(x, y) {
+
+  if (y === 0) {
+    return NaN;
+  }
+  if (x === y) {
+    return 1;
+  }
+  if (x < y) {
+    return 0;
+  }
+  return 1 + divide(x - y, y);
 };
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
@@ -221,6 +253,17 @@ var divide = function(x, y) {
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 var gcd = function(x, y) {
+  if (x < 0 || y < 0) {
+    return null;
+  }
+  if (x === 0) {
+    return y;
+  }
+  if (y === 0) {
+    return x;
+  }
+  return gcd(y, x%y);
+
 };
 
 // 15. Write a function that compares each character of two strings and returns true if
@@ -228,21 +271,84 @@ var gcd = function(x, y) {
 // compareStr('house', 'houses') // false
 // compareStr('tomato', 'tomato') // true
 var compareStr = function(str1, str2) {
+  var result = true;
+
+  var inner = function(first, second) {
+    if (first[0] !== second[0]) {
+      result = false;
+    }
+    if (first.length > 1 || second.length > 1) {
+      result = compareStr(first.substring(1, first.length), second.substring(1, second.length));
+    }
+  }
+  inner(str1, str2);
+  return result;
+
 };
 
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
 var createArray = function(str) {
-};
+
+  var result = []
+
+  var inner = function(string) {
+    result.push(string[0]);
+    if (string.length > 1) {
+      result = result.concat(createArray(string.substring(1, string.length)));
+    }
+  }
+  inner(str);
+  return result;
+
+ };
 
 // 17. Reverse the order of an array
 var reverseArr = function(array) {
+
+  // edge case
+  if (array.length === 0) {
+    // array of length 0
+    return [];
+  }
+
+  // base case array length one
+  if (array.length === 1) {
+    // return this array
+    return array;
+  }
+
+
+  // recursion case
+  if (array.length > 1) {
+    // conditions array length greater than 1
+    var arr = array.slice(1, array.length);
+    // push the first element of current array
+    var result = reverseArr(arr);
+    result.push(array[0]);
+    // onto the reversed version of the array starting at current
+    // array index 1
+    return result;
+  }
+
+
 };
 
 // 18. Create a new array with a given value and length.
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
 var buildList = function(value, length) {
+  if (length <= 0) {
+    return [];
+  }
+  if (length === 1) {
+    return [value];
+  }
+  if (length > 1) {
+    var result = buildList(value, length - 1);
+    result.push(value);
+    return result;
+  }
 };
 
 // 19. Implement FizzBuzz. Given integer n, return an array of the string representations of 1 to n.

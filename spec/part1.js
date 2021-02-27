@@ -612,7 +612,7 @@
     });
 
 
-/*
+
     describe('11. Modulo', function() {
       var originalModulo;
 
@@ -1222,7 +1222,7 @@
     });
 
 
-*/
+
     describe('22. Count key in object', function() {
       var originalCountKeysInObj, input;
 
